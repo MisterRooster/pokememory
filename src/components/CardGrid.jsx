@@ -1,14 +1,21 @@
-import MemoryCard from './MemoryCard';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function CardGrid() {
-  const cards = [];
-  for (let i = 0; i < 16; i++) {
-    cards.push(<MemoryCard key={i} />);
-  }
+function CardGrid({children}) {
+  let cardComponents = [];
+  cardComponents = React.Children.map(children, (child) => 
+    child.type.name === "MemoryCard" ? child : null
+  );
 
   return (
     <div className='grid grid-cols-cards gap-5'>
-      { cards }
+      {cardComponents && cardComponents.map((component) => component)}
     </div>
   );
 }
+
+CardGrid.propTypes = {
+  children: PropTypes.node,
+};
+
+export default CardGrid;
