@@ -1,0 +1,6 @@
+[
+  ["getEndpoints", ""],
+  ["getGenerations", "generation/"],
+  ["getPokemons", "pokemon/"], 
+  ["getTypes", "type/"]
+]
