@@ -5,10 +5,11 @@ import getRandomPokemons from './modules/pokeFetch';
 import HeaderBar from './components/HeaderBar';
 import FooterBar from './components/FooterBar';
 import CardGrid from './components/CardGrid';
+import MemoryCard from './components/MemoryCard';
 import ModalInfo from './components/ModalInfo';
 
 function App() {
-  const numberOfCards = 0;
+  const numberOfCards = 20;
 
   const [pokemons, setPokemons] = useState([]);
   const [score, setScore] = useState(0);
@@ -34,7 +35,9 @@ function App() {
       <ModalInfo />
       <HeaderBar currentScore={score} bestScore={bestScore}/>
       <main className='p-4 flex-1 bg-gradient-to-b from-base-100 to-base-200'>
-        <CardGrid />
+        <CardGrid>
+          <MemoryCard key={0}/>
+        </CardGrid>
       </main>
       <FooterBar />
     </div>
