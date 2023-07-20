@@ -9,12 +9,18 @@ const _pokeApi = new PokeAPI({
  * fetches random a random number of pokemons through the pokeAPI
  */
 export default async function getRandomPokemons(amount) {
-  let randPokemons;
+  const pokeIds = [1, 5, 65];
+  const baseURL = "/api/v2/pokemon/";
+  let randPokemons = [];
 
   try {
-    const response = await _pokeApi.getPokemonByName("golduck");
-    randPokemons = [response];
-
+    /*
+    const response = await _pokeApi.resource(pokeIds.map((value) => {
+      return baseURL + value;
+    }));
+  
+    randPokemons = response;*/
+    randPokemons = [];
   } catch (error) {
     throw new Error("Could not fetch pokemons from pokeAPI!", error);
   }
