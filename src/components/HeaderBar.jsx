@@ -1,6 +1,6 @@
 import ThemeToggler from './ThemeToggler';
 
-export default function HeaderBar() {
+export default function HeaderBar({currentScore, bestScore}) {
   return (
     <header className="p-4 flex items-center bg-gradient-to-b from-secondary to-base-100">
       <div className='flex-1 flex flex-row flex-wrap items-center gap-4'>
@@ -13,8 +13,8 @@ export default function HeaderBar() {
           </svg>
         </button>
         <div className='min-[468px]:mx-auto px-2 rounded-lg min-[468px]:text-center'>
-          <h3 className='text-lg'>Score: 23</h3>
-          <h3 className='text-lg'>Best: 23</h3>
+          <h3 className='text-lg'>Score: {currentScore}</h3>
+          <h3 className='text-lg'>Best: {bestScore}</h3>
         </div>
       </div>
       <div className="flex flex-col sm:flex-row gap-4 gap-y-8 ml-4">
