@@ -9,7 +9,9 @@ import ModalInfo from './components/ModalInfo';
 function App() {
   const numberOfCards = 20;
 
-  const [creatureIndices, setCreatureIndices] = useState([1,53,24]);
+  const [creatureIndices, setCreatureIndices] = useState([]);
+  const [cardKeys, setCardKeys] = useState([...Array(3).keys()]);
+
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
 
