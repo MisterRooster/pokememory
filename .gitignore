@@ -30,6 +30,7 @@ dist-ssr
 # Dependency directories
 *.local
 node_modules
+node_modules/
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
