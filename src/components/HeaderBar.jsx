@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import ThemeToggler from './ThemeToggler';
 
-export default function HeaderBar({currentScore, bestScore}) {
+function HeaderBar({currentScore, bestScore}) {
   return (
     <header className="p-4 flex items-center bg-gradient-to-b from-secondary to-base-100">
       <div className='flex-1 flex flex-row flex-wrap items-center gap-4'>
@@ -28,3 +29,10 @@ export default function HeaderBar({currentScore, bestScore}) {
     </header>
   );
 }
+
+HeaderBar.propTypes = {
+  currentScore: PropTypes.number,
+  bestScore: PropTypes.number,
+};
+
+export default HeaderBar;
