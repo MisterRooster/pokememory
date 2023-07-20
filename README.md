@@ -4,7 +4,7 @@
 ![React shield](https://img.shields.io/badge/-React-blue)
 ![Tailwind shield](https://img.shields.io/badge/-TailwindCSS-purple)
 
-A memory like game built with Vite and React.
+A memory game built with Vite, React and TailwindCSS.
 
 ## How to play
 
