@@ -1,7 +1,7 @@
 import './App.css'
 import { useEffect, useState } from 'react'
 
-import getRandomPokemons from './modules/pokemons';
+import getRandomPokemons from './modules/pokeFetch';
 import HeaderBar from './components/HeaderBar';
 import FooterBar from './components/FooterBar';
 import CardGrid from './components/CardGrid';
@@ -14,13 +14,19 @@ function App() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
 
+  // fetch list of pokemons on mount
   useEffect(() => {
-    const fetchPokemons = async () => {
-      const data = await getRandomPokemons(numberOfCards);
-      setPokemons(data);
-    }
+    let isSubscribed = true;
 
-    fetchPokemons().catch(console.error);
+    (async () => {
+      const data = await getRandomPokemons(numberOfCards);
+
+      // avoid any race conditions if effect is called twice
+      if (isSubscribed) setPokemons(data);
+    })().catch(console.error);
+
+    // cancel any future state changes
+    return () => isSubscribed = false;
   }, []);
 
   return (
