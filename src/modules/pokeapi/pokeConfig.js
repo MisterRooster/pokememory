@@ -1,11 +1,11 @@
-class Config {
+class PokeConfig {
   constructor(config={}) {
     this.protocol = 'https',
     this.hostname = 'pokeapi.co'
     this.versionPath = '/api/v2/'
     this.offset = 0
     this.limit = 10000;
-    this.timeout = 10*1000; // 2s
+    this.timeout = 2*1000; // 2s
     this.cache = true;
     this.cacheImages = true;
 
@@ -36,4 +36,4 @@ class Config {
   }
 }
 
-export { Config }
+export { PokeConfig }
