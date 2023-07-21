@@ -87,6 +87,4 @@ class ResourceProvider {
   }
 }
 
-ResourceProvider.getTotalNumberOfPokemons();
-
 export { ResourceProvider }
