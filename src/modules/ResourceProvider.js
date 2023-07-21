@@ -28,26 +28,33 @@ class ResourceProvider {
    * @return {Promise} pokemon
    */
   static async getPokemon(pokeIdx) {
-    const dummyObj = {
-      name: `missingNo.${pokeIdx}`,
-      sprites: {
-        front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png",
-      }
+    let data = {
+      id: 0,
+      name: `Missingno.`,
+      height: 1,
+      weight: 10,
+      types: ["normal", "bird"],
+      sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png",
     };
     return new Promise(resolve => {
-      setTimeout(() => resolve(dummyObj), 1000);
+      setTimeout(() => resolve(data), 1000);
     });
 
-    /*/
-    let data = {};
     try {
-      const response = await ResourceProvider._pokeApi.getPokemonByName(pokedex_idx);  
-      data = response;
+      const response = await ResourceProvider._pokeApi.getPokemonByName(pokeIdx);  
+      data = {
+        id: response.id,
+        name: response.name,
+        height: response.height,
+        weight: response.weight,
+        types: response.types.map(t => t.type.name),
+        sprite: response.sprites.front_default,
+      };
     } catch (error) {
       throw new Error("Could not fetch pokemons from pokeAPI!", error);
     }
 
-    return data;//*/
+    return data;
   }
 
   /**
