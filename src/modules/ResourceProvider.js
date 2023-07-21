@@ -1,7 +1,7 @@
-import Pokedex from 'pokedex-promise-v2';
+import { Pokedex } from 'pokeapi-js-wrapper';
 
 class ResourceProvider {
-  static _pokeApi = new Pokedex();
+  static _pokeApi = new Pokedex({ cache: true, cacheImages: true });
 
   static #usedIndices = new Set();
 
