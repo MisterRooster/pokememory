@@ -1,5 +1,0 @@
-[
-  ["getGeneration", "name", "generation/:id/"],
-  ["getPokemon", "name", "pokemon/:id/"],
-  ["getType", "name", "type/:id/"]
-]
