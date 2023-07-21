@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import './CardGrid.css'
 import { ResourceProvider } from '../modules/ResourceProvider';
 import Placeholder from '../assets/placeholder.png'
 
@@ -67,7 +68,10 @@ const Card = () => {
   },[cardRef]);
 
   return (
-    <div ref={cardRef} className="relative bg-base-300 w-full aspect-square rounded-lg overflow-hidden">
+    <button
+      ref={cardRef}
+      className="card mask mask-squircle relative bg-base-300 w-full aspect-square overflow-hidden hover:bg-primary"
+    >
       {!creature && <span className="loading loading-spinner loading-lg m-auto text-base-100"></span>}
       {creature && <>
         <img
@@ -81,7 +85,7 @@ const Card = () => {
         </p>
         <button className='btn btn-ghost btn-xs hidden absolute top-0 inset-x-0 w-full' onClick={reset}>reset</button>
       </>}
-    </div>
+    </button>
   );
 }
 
