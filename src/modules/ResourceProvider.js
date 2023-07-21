@@ -5,7 +5,7 @@ class ResourceProvider {
 
   static #usedIndices = new Set();
 
-  static #TOTAL_POKEMON = 1281;
+  static #TOTAL_POKEMON = 1010;
 
   static get pokemonCount() { return ResourceProvider.#TOTAL_POKEMON; }
 
@@ -14,7 +14,7 @@ class ResourceProvider {
    */
   static async _refreshNumOfPokemon() {
     try {
-      const response = await ResourceProvider._pokeApi.getPokemonsList({ offset: 0, limit: 1 });
+      const response = await ResourceProvider._pokeApi.getPokemonSpeciesList({ offset: 0, limit: 1 });
       ResourceProvider.#TOTAL_POKEMON = response.count;
     } catch (error) {
       console.warning("Could not update number of pokemons from pokeAPI!", error);
@@ -36,9 +36,12 @@ class ResourceProvider {
       types: ["normal", "bird"],
       sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png",
     };
+
+    /*/ uncomment this to use mocking api call
     return new Promise(resolve => {
       setTimeout(() => resolve(data), 1000);
     });
+    //*/
 
     try {
       const response = await ResourceProvider._pokeApi.getPokemonByName(pokeIdx);  
