@@ -1,10 +1,7 @@
-import { PokeAPI } from './pokeapi/pokeAPI';
+import Pokedex from 'pokedex-promise-v2';
 
 class ResourceProvider {
-  static _pokeApi = new PokeAPI({
-    cache: true,
-    cacheImages: true
-  });
+  static _pokeApi = new Pokedex();
 
   static #usedIndices = new Set();
 
@@ -42,7 +39,7 @@ class ResourceProvider {
     });
 
     /*/
-    let data = [];
+    let data = {};
     try {
       const response = await ResourceProvider._pokeApi.getPokemonByName(pokedex_idx);  
       data = response;
