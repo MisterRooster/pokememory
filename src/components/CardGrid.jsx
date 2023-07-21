@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import getPokemon from '../modules/pokeFetch';
+import { ResourceProvider } from '../modules/ResourceProvider';
 
 function CardGrid({children}) {
   let cardComponents = [];
@@ -19,15 +19,21 @@ CardGrid.propTypes = {
   children: PropTypes.node,
 };
 
-const Card = ({creatureIdx}) => {
+const Card = () => {
   const [creature, setCreature] = useState(null);
+  const [resetToggle, setResetToggle] = useState(false);
 
+  function reset() {
+    setCreature(null);
+    setResetToggle((prev) => !prev);
+  }
+  
   // fetch creature on mount and on index change
   useEffect(() => {
     let isSubscribed = true;
 
     (async () => {
-      const data = await getPokemon(creatureIdx);
+      const data = await ResourceProvider.getRandomPokemon();
 
       // avoid any race conditions if effect is called twice
       if (isSubscribed) setCreature(data);
@@ -35,12 +41,13 @@ const Card = ({creatureIdx}) => {
 
     // cancel any future state changes
     return () => isSubscribed = false;
-  }, [creatureIdx]);
+  }, [resetToggle]);
 
   return (
-    <div className="flex bg-base-300 w-full p-4 aspect-square justify-center text-center rounded-lg">
+    <div className="flex flex-col bg-base-300 w-full p-4 aspect-square items-center rounded-lg">
       {!creature && <span className="loading loading-spinner loading-lg text-base-100"></span>}
       {creature && <p>{creature.name}</p>}
+      <button className='btn btn-primary' onClick={reset}>reset</button>
     </div>
   );
 }
