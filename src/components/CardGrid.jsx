@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import './CardGrid.css'
 import { ResourceProvider } from '../modules/ResourceProvider';
-import Placeholder from '../assets/placeholder.png'
+import './CardGrid.css'
 
 /*
  * Dynamic grid for holding cards
