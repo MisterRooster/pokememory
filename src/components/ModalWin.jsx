@@ -5,9 +5,11 @@ export default function ModalWin() {
         <h3 className="font-bold text-lg">Congrats!</h3>
         <p className="py-4">You beat the Game!</p>
         <div className="modal-action">
-          {/* if there is a button in form, it will close the modal */}
           <button className="btn">Close</button>
         </div>
+      </form>
+      <form method="dialog" className="modal-backdrop">
+        <button>close</button>
       </form>
     </dialog>
   );
