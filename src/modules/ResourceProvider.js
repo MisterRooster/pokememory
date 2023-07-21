@@ -6,37 +6,33 @@ class ResourceProvider {
     cacheImages: true
   });
 
-  static #totalPokeCount_cache = undefined;
   static #usedIndices = new Set();
 
-  /**
-   * fetches the total number of available pokemons
-   */
-  static async getTotalNumberOfPokemons() {
-    if (ResourceProvider.#totalPokeCount_cache === undefined)
-    {
-      let data;
-      try {
-        const response = await ResourceProvider._pokeApi.getPokemonsList({ offset: 0, limit: 1 });
-        console.log(response);
-        data = response.count;
-        ResourceProvider.#totalPokeCount_cache = data;
-      } catch (error) {
-        throw new Error("Could not fetch number of pokemons from pokeAPI!", error);
-      }
+  static #TOTAL_POKEMON = 1281;
 
-      return data;
+  static get pokemonCount() { return ResourceProvider.#TOTAL_POKEMON; }
+
+  /*
+   * Refreshes the pokemon count from the pokeAPI.
+   */
+  static async _refreshNumOfPokemon() {
+    try {
+      const response = await ResourceProvider._pokeApi.getPokemonsList({ offset: 0, limit: 1 });
+      ResourceProvider.#TOTAL_POKEMON = response.count;
+    } catch (error) {
+      console.warning("Could not update number of pokemons from pokeAPI!", error);
     }
-    
-    return ResourceProvider.#totalPokeCount_cache;
   }
 
   /**
-   * fetches a single pokemon through the pokeAPI
+   * Fetches a pokemon through the pokeAPI.
+   * 
+   * @param {Number} pokeIdx Index of pokemon to fetch
+   * @return {Promise} pokemon
    */
-  static async getPokemon(pokedex_idx) {
+  static async getPokemon(pokeIdx) {
     const dummyObj = {
-      name: `missingNo.${pokedex_idx}`,
+      name: `missingNo.${pokeIdx}`,
     };
     return new Promise(resolve => {
       setTimeout(() => resolve(dummyObj), 1000);
@@ -55,20 +51,14 @@ class ResourceProvider {
   }
 
   /**
-   * fetches a random pokemon through the pokeAPI.
-   * If unique it return a pokemon never fetched before.
+   * Fetches a random pokemon through the pokeAPI.
+   * 
+   * @param {boolean} unique If true, gets a pokemon never fetched before
+   * @return {Promise} pokemon 
    */
   static async getRandomPokemon(unique=true) {
-    let totalCount = 0;
-    try {
-      const resp = await ResourceProvider.getTotalNumberOfPokemons();
-      if (resp) totalCount = resp;
-    } catch (error) {
-      console.log(error);
-    }
-
     const getNextRandomNum = () => {
-      const val = Math.floor(Math.random() * totalCount);
+      const val = Math.floor(Math.random() * ResourceProvider.pokemonCount);
       if (unique && ResourceProvider.#usedIndices.has(val)) return getNextRandomNum();
       return val;
     }
@@ -80,11 +70,14 @@ class ResourceProvider {
   }
 
   /**
-   * Resets the list of fetched random pokemon
+   * Resets the list of fetched random pokemon.
    */
   static forgetRandomHistory = () => {
     ResourceProvider.#usedIndices.clear();
   }
 }
+
+// refreshes on module import
+ResourceProvider._refreshNumOfPokemon();
 
 export { ResourceProvider }
