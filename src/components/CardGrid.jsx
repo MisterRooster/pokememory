@@ -27,13 +27,22 @@ CardGrid.propTypes = {
 /*
  * A game card representing one pokemon
  */
-const Card = () => {
+const Card = ({uuid, onClick}) => {
   const [creature, setCreature] = useState(null);
   const [resetToggle, setResetToggle] = useState(false);
 
   // used for dynamic font scaling
   const cardRef = useRef(null);
   const [fontSize, setFontSize] = useState(0);
+
+  // used to show detailed info
+  const [detailMode, setDetailMode] = useState(false);
+  const detailModeStyle = (detailMode) ? "detailMode" : "";
+
+  function handleClick(e) {
+    if (onClick) onClick();
+    //reset();
+  }
 
   function reset() {
     setCreature(null);
@@ -59,7 +68,7 @@ const Card = () => {
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
       const fScale = entries[0].contentRect.width/120;
-      setFontSize(()=> 0.675 * fScale + 'rem');
+      setFontSize(()=> 0.675 * fScale);
     });
 
     if (cardRef && cardRef.current) {
@@ -70,27 +79,43 @@ const Card = () => {
   return (
     <button
       ref={cardRef}
+      onClick={() => onClick(uuid)}
       className="card mask mask-squircle relative bg-base-300 w-full aspect-square overflow-hidden hover:bg-primary"
     >
       {!creature && <span className="loading loading-spinner loading-lg m-auto text-base-100"></span>}
       {creature && <>
         <img
-          className="absolute top-[-2rem] inset-x-[-1rem] max-w-none w-[calc(100%+2rem)] object-cover"
-          src={creature.sprites.front_default} 
+          className={`${detailModeStyle} absolute top-[-2rem] inset-x-[-1rem] max-w-none w-[calc(100%+2rem)] object-cover`}
+          src={creature.sprite} 
         />
         <p
-          className="absolute bottom-4 inset-x-0 text-center "
-          style={{fontSize: fontSize }} >
+          className="absolute bottom-4 inset-x-0 text-center font-semibold"
+          onMouseOver={() => setDetailMode(true)}
+          onMouseOut={() => setDetailMode(false)}
+          style={{fontSize: fontSize + 'rem' }} >
           {creature.name}
         </p>
-        <button className='btn btn-ghost btn-xs hidden absolute top-0 inset-x-0 w-full' onClick={reset}>reset</button>
+        <div 
+          className={`details ${detailModeStyle} absolute top-[30%] right-[20%] text-xs opacity-0`}
+          style={{fontSize: fontSize*0.8 + 'rem' }}
+        >
+          <p>{creature.height} m</p>
+          <p>{creature.weight} kg</p>
+        </div>
+        <div
+          className={`details ${detailModeStyle} absolute bottom-[30%] inset-x-0 text-xs opacity-0`}
+          style={{fontSize: fontSize*0.8 + 'rem' }}
+        >
+          <p>type: {creature.types.join(", ")}</p>
+        </div>
       </>}
     </button>
   );
 }
 
 Card.propTypes = {
-  creatureIdx: PropTypes.number,
+  uuid: PropTypes.number,
+  onClick: PropTypes.func,
 };
 
 CardGrid.Card = Card;

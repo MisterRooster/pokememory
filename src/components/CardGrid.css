@@ -5,3 +5,20 @@
 .card:hover {
   transform: scale(1.1);
 }
+
+.card > img {
+  transition: transform 0.1s;
+}
+
+.card > img.detailMode {
+  transform: scale(0.8) translate(-20%, -5%);
+}
+
+.card > div {
+  transition: all 0.3s ease;
+}
+
+.card > div.detailMode {
+  filter: alpha(opacity=50);
+  opacity: 1;
+}
