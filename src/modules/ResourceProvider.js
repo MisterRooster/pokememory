@@ -33,6 +33,9 @@ class ResourceProvider {
   static async getPokemon(pokeIdx) {
     const dummyObj = {
       name: `missingNo.${pokeIdx}`,
+      sprites: {
+        front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png",
+      }
     };
     return new Promise(resolve => {
       setTimeout(() => resolve(dummyObj), 1000);
