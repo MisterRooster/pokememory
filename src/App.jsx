@@ -9,22 +9,9 @@ import ModalInfo from './components/ModalInfo';
 function App() {
   const numberOfCards = 20;
 
-  const [creatureIndices, setCreatureIndices] = useState([]);
-  const [cardKeys, setCardKeys] = useState([...Array(3).keys()]);
-
+  const [cardKeys, setCardKeys] = useState([...Array(numberOfCards).keys()]);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
-
-  let cards = []
-  for (let idx = 0; idx < numberOfCards; idx+=1)
-  {
-    cards.push(
-      <CardGrid.Card
-        key={idx}
-        creatureIdx={idx < creatureIndices.length ? creatureIndices[idx] : null}
-      />
-    );
-  }
 
   return (
     <div className='flex flex-col min-h-full'>
@@ -32,7 +19,7 @@ function App() {
       <HeaderBar currentScore={score} bestScore={bestScore}/>
       <main className='p-4 flex-1 bg-gradient-to-b from-base-100 to-base-200'>
         <CardGrid>
-          {cards}
+          {cardKeys.map(key => <CardGrid.Card key={key}/>)}
         </CardGrid>
       </main>
       <FooterBar />
