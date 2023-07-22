@@ -48,8 +48,8 @@ class ResourceProvider {
       data = {
         id: response.id,
         name: response.name,
-        height: response.height,
-        weight: response.weight,
+        height: response.height/10,
+        weight: response.weight/10,
         types: response.types.map(t => t.type.name),
         sprite: response.sprites.front_default,
       };
