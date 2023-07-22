@@ -11,7 +11,7 @@
 }
 
 .card > img.detailMode {
-  transform: scale(0.8) translate(-20%, -5%);
+  transform: scale(0.6) translate(-25%, -25%);
 }
 
 .card > div {

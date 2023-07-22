@@ -84,18 +84,18 @@ const Card = ({uuid, onClick}) => {
       {!creature && <span className="loading loading-spinner loading-lg m-auto text-base-100"></span>}
       {creature && <>
         <img
-          className={`${detailModeStyle} absolute top-[-2rem] inset-x-[-1rem] max-w-none w-[calc(100%+2rem)] object-cover`}
+          className={`${detailModeStyle} absolute inset-0 max-w-none w-full object-cover`}
           src={creature.sprite} 
         />
         <p
-          className="absolute bottom-4 inset-x-0 text-center font-semibold"
+          className="absolute bottom-4 inset-x-0 text-center font-semibold bg-secondary/75"
           onMouseOver={() => setDetailMode(true)}
           onMouseOut={() => setDetailMode(false)}
           style={{fontSize: fontSize + 'rem' }} >
           {creature.name}
         </p>
         <div 
-          className={`details ${detailModeStyle} absolute top-[30%] right-[20%] text-xs opacity-0`}
+          className={`details ${detailModeStyle} absolute top-[30%] right-[12%] text-xs text-left opacity-0`}
           style={{fontSize: fontSize*0.8 + 'rem' }}
         >
           <p>{creature.height} m</p>

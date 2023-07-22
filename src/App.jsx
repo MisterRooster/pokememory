@@ -8,7 +8,7 @@ import ModalInfo from './components/ModalInfo';
 import ModalWin from './components/ModalWin';
 
 function App() {
-  const numberOfCards = 5;
+  const numberOfCards = 20;
 
   const [cardKeys, setCardKeys] = useState([...Array(numberOfCards).keys()]);
   const [clickedCards, setClickedCards] = useState(new Set());
