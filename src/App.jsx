@@ -1,4 +1,3 @@
-import './App.css'
 import { useState } from 'react'
 
 import HeaderBar from './components/HeaderBar';
@@ -8,17 +7,24 @@ import ModalInfo from './components/ModalInfo';
 import ModalWin from './components/ModalWin';
 
 function App() {
-  const numberOfCards = 20;
+  const startNumberOfCards = 5;
 
-  const [cardKeys, setCardKeys] = useState([...Array(numberOfCards).keys()]);
-  const [clickedCards, setClickedCards] = useState(new Set());
-
+  const [level, setLevel] = useState(0);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
+
+  const [cardKeys, setCardKeys] = useState([...Array(level + startNumberOfCards).keys()]);
+  const [clickedCards, setClickedCards] = useState(new Set());
   
   function reset() {
     setScore(0);
     setClickedCards(new Set());
+  }
+
+  function newLevel(value) {
+    setLevel((prev) => value);
+    setCardKeys(() => [...Array(value + startNumberOfCards).keys()]);
+    reset();
   }
 
   const shuffledArray = (array) => {
@@ -31,24 +37,29 @@ function App() {
 	}
 
   function handleClick(uuid) {
-    if (clickedCards.has(uuid)) {
+    if (clickedCards.has(uuid)) { // card already selected
       reset();
     } else {
       clickedCards.add(uuid);
       setScore((prev) => prev+1);
       setBestScore((prev) => Math.max(score + 1, prev)); // +1 because react state set is not atomic
 
-      if (score+1 === numberOfCards)
+      // user has finished the level
+      if (score+1 === (startNumberOfCards+level)) {
         window.modal_win.showModal()
+        newLevel(level + 1);
+      }
+
+      // shuffle keys
       setCardKeys((prev)=> shuffledArray(prev));
     }
   }
 
   return (
-    <div className='flex flex-col min-h-full'>
+    <div className='flex flex-col min-h-full max-w-7xl my-0 mx-auto border-x border-base-300'>
       <ModalInfo />
-      <ModalWin />
-      <HeaderBar currentScore={score} bestScore={bestScore}/>
+      <ModalWin currLevel={level}/>
+      <HeaderBar level={level} currentScore={score} bestScore={bestScore}/>
       <main className='p-4 flex-1 bg-gradient-to-b from-base-100 to-base-200'>
         <CardGrid>
           {cardKeys.map(key => <CardGrid.Card key={key} uuid={key} onClick={handleClick}/>)}
