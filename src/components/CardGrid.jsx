@@ -88,7 +88,7 @@ const Card = ({uuid, onClick}) => {
           src={creature.sprite} 
         />
         <p
-          className="absolute bottom-4 inset-x-0 text-center font-semibold bg-secondary/75"
+          className="absolute bottom-4 inset-x-0 text-center font-bold bg-secondary/75"
           onMouseOver={() => setDetailMode(true)}
           onMouseOut={() => setDetailMode(false)}
           style={{fontSize: fontSize + 'rem' }} >

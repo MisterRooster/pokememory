@@ -8,6 +8,9 @@ export default {
     gridTemplateColumns: {
       'cards': 'repeat(auto-fit, minmax(120px, auto))',
     },
+    fontFamily: {
+      'space2p': '"Press Start 2P", system-ui, Helvetica, Arial, sans-serif',
+    },
     extend: {},
   },
   darkMode: 'class',
