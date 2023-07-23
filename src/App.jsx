@@ -7,12 +7,12 @@ import ModalInfo from './components/ModalInfo';
 import ModalWin from './components/ModalWin';
 
 function App() {
-  const startNumberOfCards = 5;
+  const [hasSound, setHasSound] = useState(true);
 
+  const startNumberOfCards = 5;
   const [level, setLevel] = useState(0);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
-
   const [cardKeys, setCardKeys] = useState([...Array(level + startNumberOfCards).keys()]);
   const [clickedCards, setClickedCards] = useState(new Set());
   
@@ -55,11 +55,24 @@ function App() {
     }
   }
 
+  function playSound(path) {
+    const audio = new Audio(path);
+    audio.volume = 0.2;
+    audio.currentTime = 0;
+    audio.play();
+  }
+
   return (
     <div className='flex flex-col min-h-full max-w-7xl my-0 mx-auto border-x border-base-300'>
       <ModalInfo />
       <ModalWin currLevel={level}/>
-      <HeaderBar level={level} currentScore={score} bestScore={bestScore}/>
+      <HeaderBar
+        level={level}
+        currentScore={score}
+        bestScore={bestScore}
+        hasSound={hasSound} 
+        setHasSound={setHasSound}
+      />
       <main className='p-4 flex-1 bg-gradient-to-b from-base-100 to-base-200'>
         <CardGrid>
           {cardKeys.map(key => <CardGrid.Card key={key} uuid={key} onClick={handleClick}/>)}
