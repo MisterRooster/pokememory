@@ -21,8 +21,8 @@ function HeaderBar({level, currentScore, bestScore, hasSound, setHasSound}) {
   }, [flexDivRef]);
 
   // change layout on flex wrap
-  const iconsFlexStyle =  (isWrapped) ? "flex-col ml-[52px]" : "flex-row";
-  const scorePadding = (isWrapped) ? "pl-[52px]": "px-[26px]";
+  const iconsFlexStyle =  (isWrapped) ? "flex-col ml-[56px]" : "flex-row";
+  const scorePadding = (isWrapped) ? "pl-[56px]": "px-[28px]";
 
   return (
     <header className="p-4 flex items-center bg-gradient-to-b from-secondary to-base-100">
@@ -33,19 +33,19 @@ function HeaderBar({level, currentScore, bestScore, hasSound, setHasSound}) {
         </div>
         <div className='flex-1 flex'>
           <button onClick={()=>window.modal_info.showModal()}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
             </svg>
           </button>
           <div className={`mx-auto ${scorePadding} text-center text-accent`}>
-            <p className='font-space2p text-[0.9rem] whitespace-nowrap'>Score: {currentScore}</p>
-            <p className='font-space2p text-[0.9rem] whitespace-nowrap'>Best: {bestScore}</p>
+            <p className='font-space2p text-sm whitespace-nowrap'>Score: {currentScore}</p>
+            <p className='font-space2p text-sm whitespace-nowrap'>Best: {bestScore}</p>
           </div>
         </div>
       </div>
       <div className={`flex ${iconsFlexStyle} gap-4 gap-y-8 flex-wrap`}>
-        <ThemeToggler />
-        <SoundToggler hasSound={hasSound} setHasSound={setHasSound} />
+        <ThemeToggler size={32}/>
+        <SoundToggler size={32} hasSound={hasSound} setHasSound={setHasSound} />
       </div>
     </header>
   );
