@@ -6,6 +6,11 @@ import CardGrid from './components/CardGrid';
 import ModalInfo from './components/ModalInfo';
 import ModalWin from './components/ModalWin';
 
+import SndRightChoiceUrl from './assets/right_choice.mp3';
+import SndWrongChoiceUrl from './assets/wrong_choice.mp3';
+import SndLevelUpUrl from './assets/level_up.mp3';
+import SndGameOverUrl from './assets/game_over.mp3';
+
 function App() {
   const [hasSound, setHasSound] = useState(true);
 
@@ -38,14 +43,18 @@ function App() {
 
   function handleClick(uuid) {
     if (clickedCards.has(uuid)) { // card already selected
+      if (hasSound) playSound(SndWrongChoiceUrl);
       reset();
     } else {
-      clickedCards.add(uuid);
+      if (hasSound) playSound(SndRightChoiceUrl);
+
+      setClickedCards((prev) => prev.add(uuid));
       setScore((prev) => prev+1);
       setBestScore((prev) => Math.max(score + 1, prev)); // +1 because react state set is not atomic
 
       // user has finished the level
       if (score+1 === (startNumberOfCards+level)) {
+        if (hasSound) playSound(SndLevelUpUrl);
         window.modal_win.showModal()
         newLevel(level + 1);
       }
@@ -56,6 +65,8 @@ function App() {
   }
 
   function playSound(path) {
+    if (path === undefined) return;
+
     const audio = new Audio(path);
     audio.volume = 0.2;
     audio.currentTime = 0;
