@@ -18,8 +18,10 @@ function App() {
   const [level, setLevel] = useState(0);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
+
   const [cardKeys, setCardKeys] = useState([...Array(level + startNumberOfCards).keys()]);
   const [clickedCards, setClickedCards] = useState(new Set());
+  const [blinkingCard, setBlinkingCard] = useState(-1);
   
   function reset() {
     setScore(0);
@@ -44,6 +46,12 @@ function App() {
   function handleClick(uuid) {
     if (clickedCards.has(uuid)) { // card already selected
       if (hasSound) playSound(SndWrongChoiceUrl);
+
+      setBlinkingCard(()=>uuid);
+      (async ()=>{
+        setTimeout(() => setBlinkingCard(-1), 1000);
+      })();
+
       reset();
     } else {
       if (hasSound) playSound(SndRightChoiceUrl);
@@ -86,7 +94,7 @@ function App() {
       />
       <main className='p-4 flex-1 bg-gradient-to-b from-base-100 to-base-200'>
         <CardGrid>
-          {cardKeys.map(key => <CardGrid.Card key={key} uuid={key} onClick={handleClick}/>)}
+          {cardKeys.map(key => <CardGrid.Card key={key} uuid={key} onClick={handleClick} blink={blinkingCard===key}/>)}
         </CardGrid>
       </main>
       <FooterBar />

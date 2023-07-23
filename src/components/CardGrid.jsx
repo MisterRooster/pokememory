@@ -26,7 +26,7 @@ CardGrid.propTypes = {
 /*
  * A game card representing one pokemon
  */
-const Card = ({uuid, onClick}) => {
+const Card = ({uuid, onClick, blink=false}) => {
   const [creature, setCreature] = useState(null);
   const [resetToggle, setResetToggle] = useState(false);
 
@@ -37,6 +37,7 @@ const Card = ({uuid, onClick}) => {
   // used to show detailed info
   const [detailMode, setDetailMode] = useState(false);
   const detailModeStyle = (detailMode) ? "detailMode" : "";
+  const cardBlinkStyle = (blink) ? "blinking" : "";
 
   function handleClick(e) {
     if (onClick) onClick();
@@ -79,7 +80,7 @@ const Card = ({uuid, onClick}) => {
     <button
       ref={cardRef}
       onClick={() => onClick(uuid)}
-      className="card mask mask-squircle relative bg-base-300 w-full aspect-square overflow-hidden hover:bg-primary"
+      className={`card ${cardBlinkStyle} relative bg-base-300 w-full aspect-square overflow-hidden rounded-xl shadow-xl`}
     >
       {!creature && <span className="loading loading-spinner loading-lg m-auto text-base-100"></span>}
       {creature && <>
@@ -115,6 +116,7 @@ const Card = ({uuid, onClick}) => {
 Card.propTypes = {
   uuid: PropTypes.number,
   onClick: PropTypes.func,
+  blink: PropTypes.bool,
 };
 
 CardGrid.Card = Card;

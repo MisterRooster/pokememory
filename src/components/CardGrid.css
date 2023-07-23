@@ -2,10 +2,6 @@
   transition: transform 0.1s;
 }
 
-.card:hover {
-  transform: scale(1.1);
-}
-
 .card > img {
   transition: transform 0.1s;
 }
@@ -21,4 +17,19 @@
 .card > div.detailMode {
   filter: alpha(opacity=50);
   opacity: 1;
+}
+
+@keyframes anim-blinking {
+  50% { box-shadow: 0 0 10px 0 red; }
+}
+
+.card.blinking {
+  animation: 0.5s ease-in-out 2 forwards anim-blinking;
+}
+
+@media (hover: hover) {
+	.card:hover {
+		transform: scale(1.1);
+    @apply bg-primary;
+	}
 }
