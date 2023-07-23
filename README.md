@@ -1,10 +1,11 @@
-# Memory-Game
+# Pokememory
 
 ![Vite shield](https://img.shields.io/badge/-Vite-pink)
 ![React shield](https://img.shields.io/badge/-React-blue)
 ![Tailwind shield](https://img.shields.io/badge/-TailwindCSS-purple)
 
-A memory game built with Vite, React and TailwindCSS.
+A pokemon memory game built with Vite, React and TailwindCSS.
+Uses [PokeAPI](https://pokeapi.co/) to gather pokemon information and the samples from the [DP Sound library](https://www.pokemon.com/us/dp-sound-library).
 
 ## How to play
 
@@ -13,7 +14,7 @@ choosing the same card twice.
 
 ## How to compile
 
-First clone the repository locally if (if you havent already):
+First clone the repository locally:
 
 ```bash
 git clone git@github.com:MisterRooster/web-dev-samples.git
