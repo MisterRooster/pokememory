@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import HeaderBar from './components/HeaderBar';
 import FooterBar from './components/FooterBar';
@@ -23,6 +23,10 @@ function App() {
   const [clickedCards, setClickedCards] = useState(new Set());
   const [blinkingCard, setBlinkingCard] = useState(-1);
   
+  useEffect(() => {
+    if (!window.modal_info.open) window.modal_info.showModal()
+  }, []);
+
   function reset() {
     setScore(0);
     setClickedCards(new Set());
