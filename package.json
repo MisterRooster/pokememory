@@ -1,8 +1,8 @@
 {
-  "name": "memory-game",
+  "name": "pokememory",
   "private": true,
   "version": "0.0.0",
-  "description": "Memory like game.",
+  "description": "Pokemon memory game",
   "author": "MisterRooster (https://github.com/MisterRooster)",
   "license": "MIT",
   "type": "module",
