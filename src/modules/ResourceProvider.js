@@ -75,7 +75,6 @@ class ResourceProvider {
     const nextIdx = getNextRandomNum()
     ResourceProvider.#usedIndices.add(nextIdx)
 
-    console.log(ResourceProvider.#usedIndices)
     return this.getPokemon(nextIdx)
   }
 
