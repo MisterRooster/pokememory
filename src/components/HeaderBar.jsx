@@ -36,7 +36,7 @@ function HeaderBar({
     "flex-row": !isWrapped,
   });
   const scoreClass = cn({
-    "mx-auto text-center text-accent": true,
+    "mx-auto text-center": true,
     "pl-[56px]": isWrapped,
     "px-[28px]": !isWrapped,
   });
@@ -65,7 +65,6 @@ function HeaderBar({
           <div className={scoreClass}>
             <p className='font-space2p text-sm whitespace-nowrap'>Score: {currentScore}</p>
             <p className='font-space2p text-sm whitespace-nowrap'>Best: {bestScore}</p>
-            <span>{timerData.days}</span>:<span>{timerData.hours}</span>:<span>{timerData.minutes}</span>:<span>{timerData.seconds}</span>
           </div>
         </div>
       </div>

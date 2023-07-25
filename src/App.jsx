@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useTimer } from 'react-timer-hook';
+import cn from 'classnames'
 
 import HeaderBar from './components/HeaderBar';
 import FooterBar from './components/FooterBar';
 import CardGrid from './components/CardGrid';
 import ModalWelcome from './components/ModalWelcome';
-import ModalWin from './components/ModalWin';
+import ModalLevelUp from './components/ModalLevelUp';
 import ModalGameOver from './components/ModalGameOver';
 
 import SndRightChoiceUrl from './assets/right_choice.mp3';
@@ -94,21 +95,32 @@ function App() {
 
   // timer data
   const startTime = new Date();
-  startTime.setSeconds(startTime.getSeconds() + 30);
+  startTime.setSeconds(startTime.getSeconds() + 60);
   const {
     totalSeconds, seconds, minutes, hours, days,
     isRunning, start, pause, resume, restart,
   } = useTimer({ expiryTimestamp: startTime, onExpire: gameOver, autoStart: false });
+
+  function addTime(value) {
+    const time = new Date();
+    time.setSeconds(time.getSeconds() + value + totalSeconds);
+    restart(time);
+  }
 
   function resetLevel() {
     setScore(0);
     setClickedCards(new Set());
   }
 
-  function newLevel(value) {
+  function gotoLevel(value) {
     setLevel((prev) => value);
     setCardKeys(() => [...Array(value + startNumberOfCards).keys()]);
     resetLevel();
+
+    if (value === 0)
+      addTime(60);
+    else
+      addTime((value + startNumberOfCards)*3);
   }
 
   function gameOver() {
@@ -129,15 +141,15 @@ function App() {
     } else {
       if (hasSound) playSound(SndRightChoiceUrl);
 
-      setClickedCards((prev) => prev.add(uuid));
+      setClickedCards((prev) => new Set(prev.add(uuid)));
       setScore((prev) => prev+1);
       setBestScore((prev) => Math.max(score + 1, prev)); // +1 because react state set is not atomic
 
       // user has finished the level
       if (score+1 === (startNumberOfCards+level)) {
         if (hasSound) playSound(SndLevelUpUrl);
-        window.modal_win.showModal()
-        newLevel(level + 1);
+        pause();
+        openModal(MODALTYPE.LEVELUP);
       }
 
       // shuffle keys
@@ -147,18 +159,32 @@ function App() {
 
   // --------------------- render ---------------------- //
 
+  // colorize timer when time is low
+  const timerClass = cn({
+    "mx-4 p-4 font-space2p text-md text-center border-2 border-base-content rounded-lg": true,
+    "text-accent": (totalSeconds < 10),
+  });
+  const secString = (seconds < 10) ? "0" + seconds : seconds;
+
   return (
     <div className='flex flex-col min-h-full max-w-7xl my-0 mx-auto border-x border-base-300'>
       <ModalWelcome 
         isOpen={modalOpenArr.WELCOME}
-        close={()=>closeModal(MODALTYPE.WELCOME)}
-        onAfterClose={() => start()}
-      />
-      <ModalWin currLevel={level}/>
+        close={() => closeModal(MODALTYPE.WELCOME)}
+        onAfterClose={() => start()}/>
+      <ModalLevelUp
+        isOpen={modalOpenArr.LEVELUP}
+        close={() => closeModal(MODALTYPE.LEVELUP)}
+        onAfterClose={() => {
+          gotoLevel(level+1);
+        }}
+        currLevel={level}/>
       <ModalGameOver
         isOpen={modalOpenArr.GAMEOVER}
         close={() => closeModal(MODALTYPE.GAMEOVER)}
-        onAfterClose={() => newLevel(0)}/>
+        onAfterClose={() => gotoLevel(0)}
+        maxlevel={level}
+        score={bestScore}/>
       <HeaderBar
         level={level}
         currentScore={score}
@@ -166,22 +192,13 @@ function App() {
         hasSound={hasSound} 
         setHasSound={setHasSound}
         timerData={{
-          days: days,
-          hours: hours,
-          minutes: minutes,
-          seconds: seconds,
           pause: pause,
           resume: resume,
         }}
       />
-      <button className='btn btn-secondary' onClick={start}>Start Timer</button>
-      <button className='btn btn-secondary' onClick={pause}>Pause Timer</button>
-      <button className='btn btn-secondary' onClick={resume}>Resume Timer</button>
-      <button className='btn btn-secondary' onClick={() => {
-        const time = new Date();
-        time.setSeconds(time.getSeconds() + 20);
-        restart(time);
-      }}>Restart Timer</button>
+      <p className={timerClass}>
+        <span>{minutes}</span>:<span>{secString}</span>
+      </p>
       <main className='p-4 flex-1 bg-gradient-to-b from-base-100 to-base-200'>
         <CardGrid>
           {cardKeys.map(key =>
