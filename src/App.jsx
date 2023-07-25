@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useTimer } from 'react-timer-hook';
-import cn from 'classnames'
 
 import HeaderBar from './components/HeaderBar';
 import FooterBar from './components/FooterBar';
@@ -13,6 +12,7 @@ import SndRightChoiceUrl from './assets/right_choice.mp3';
 import SndWrongChoiceUrl from './assets/wrong_choice.mp3';
 import SndLevelUpUrl from './assets/level_up.mp3';
 import SndGameOverUrl from './assets/game_over.mp3';
+import TimerBar from './components/TimeBar';
 
 
 /* helper function to create enum objects */
@@ -93,7 +93,7 @@ function App() {
   const [clickedCards, setClickedCards] = useState(new Set());
   const [blinkingCard, setBlinkingCard] = useState(-1);
 
-  // timer data
+  // timer
   const startTime = new Date();
   startTime.setSeconds(startTime.getSeconds() + 60);
   const {
@@ -159,13 +159,6 @@ function App() {
 
   // --------------------- render ---------------------- //
 
-  // colorize timer when time is low
-  const timerClass = cn({
-    "mx-4 p-4 font-space2p text-md text-center border-2 border-base-content rounded-lg": true,
-    "text-accent": (totalSeconds < 10),
-  });
-  const secString = (seconds < 10) ? "0" + seconds : seconds;
-
   return (
     <div className='flex flex-col min-h-full max-w-7xl my-0 mx-auto border-x border-base-300'>
       <ModalWelcome 
@@ -178,7 +171,8 @@ function App() {
         onAfterClose={() => {
           gotoLevel(level+1);
         }}
-        currLevel={level}/>
+        currLevel={level}
+        startNumberOfCards={startNumberOfCards}/>
       <ModalGameOver
         isOpen={modalOpenArr.GAMEOVER}
         close={() => closeModal(MODALTYPE.GAMEOVER)}
@@ -196,9 +190,13 @@ function App() {
           resume: resume,
         }}
       />
-      <p className={timerClass}>
-        <span>{minutes}</span>:<span>{secString}</span>
-      </p>
+      <TimerBar 
+        timerData={{
+          totalSeconds: totalSeconds,
+          seconds: seconds,
+          minutes: minutes,
+        }}
+      />
       <main className='p-4 flex-1 bg-gradient-to-b from-base-100 to-base-200'>
         <CardGrid>
           {cardKeys.map(key =>

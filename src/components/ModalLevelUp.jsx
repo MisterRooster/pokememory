@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import ModalBox from "./ModalBox/ModalBox"
 
 
-function ModalLevelUp({ isOpen, close, onAfterClose, currLevel}) {
+function ModalLevelUp({ isOpen, close, onAfterClose, currLevel, startNumberOfCards}) {
   return (
     <ModalBox
       isOpen={isOpen}
@@ -10,7 +10,7 @@ function ModalLevelUp({ isOpen, close, onAfterClose, currLevel}) {
       onAfterClose={onAfterClose}
       closeOnOverlayClick={true}
       closeOnEsc={true}
-      ClassName="shadow-2xl shadow-secondary max-w-lg"
+      ClassName="shadow-2xl shadow-secondary max-w-lg text-center"
       aria={{
         labelledby: "mlu_heading",
         describedby: "mlu_description",
@@ -24,6 +24,9 @@ function ModalLevelUp({ isOpen, close, onAfterClose, currLevel}) {
       <div id="mlu_description">
         <p className="pt-4">
           You beat <b>Level {currLevel+1}</b>!
+        </p>
+        <p>
+          Time bonus gained: <b>{(currLevel + 1 + startNumberOfCards)*2}s</b>
         </p>
         <p className="">Can you do it with one more before time runs out?</p>
       </div>
