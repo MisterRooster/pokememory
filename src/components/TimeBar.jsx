@@ -21,4 +21,4 @@ TimeBar.propTypes = {
   TimerBar: PropTypes.object,
 };
 
-export default TimerBar;
+export default TimeBar;

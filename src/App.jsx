@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTimer } from 'react-timer-hook';
 
 import HeaderBar from './components/HeaderBar';
 import FooterBar from './components/FooterBar';
 import CardGrid from './components/CardGrid';
+import TimeBar from './components/TimeBar';
 import ModalWelcome from './components/ModalWelcome';
 import ModalLevelUp from './components/ModalLevelUp';
 import ModalGameOver from './components/ModalGameOver';
@@ -12,7 +13,6 @@ import SndRightChoiceUrl from './assets/right_choice.mp3';
 import SndWrongChoiceUrl from './assets/wrong_choice.mp3';
 import SndLevelUpUrl from './assets/level_up.mp3';
 import SndGameOverUrl from './assets/game_over.mp3';
-import TimerBar from './components/TimeBar';
 
 
 /* helper function to create enum objects */
@@ -52,7 +52,7 @@ function App() {
   // --------------------- modals ---------------------- //
 
   const MODALTYPE = createEnum(['WELCOME', 'LEVELUP', 'GAMEOVER']);
-  const [modalOpenArr, setModalOpenArr] = useState({ WELCOME: true, LEVELUP: false, GAMEOVER: false});
+  const [modalOpenArr, setModalOpenArr] = useState({ WELCOME: false, LEVELUP: false, GAMEOVER: false});
 
   function openModal(modaltype) {
     switch (modaltype) {
@@ -81,6 +81,11 @@ function App() {
         break;
     }
   }
+
+  useEffect(() => {
+    if (!modalOpenArr.WELCOME)
+      openModal(MODALTYPE.WELCOME);
+  }, []);
 
   // ------------------- game logic -------------------- //
 
@@ -142,11 +147,11 @@ function App() {
       if (hasSound) playSound(SndRightChoiceUrl);
 
       setClickedCards((prev) => new Set(prev.add(uuid)));
-      setScore((prev) => prev+1);
+      setScore((prev) => prev+level);
       setBestScore((prev) => Math.max(score + 1, prev)); // +1 because react state set is not atomic
 
       // user has finished the level
-      if (score+1 === (startNumberOfCards+level)) {
+      if (clickedCards.size === (startNumberOfCards+level)) {
         if (hasSound) playSound(SndLevelUpUrl);
         pause();
         openModal(MODALTYPE.LEVELUP);
@@ -155,6 +160,14 @@ function App() {
       // shuffle keys
       setCardKeys((prev)=> shuffledArray(prev));
     }
+  }
+
+  function calcScore() {
+    let score = 0;
+    for (let i= 0; i < level; i++) {
+      score += (startNumberOfCards + i) * (i+1);
+    }
+    
   }
 
   // --------------------- render ---------------------- //
@@ -190,7 +203,7 @@ function App() {
           resume: resume,
         }}
       />
-      <TimerBar 
+      <TimeBar 
         timerData={{
           totalSeconds: totalSeconds,
           seconds: seconds,
