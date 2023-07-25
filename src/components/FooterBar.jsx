@@ -16,6 +16,9 @@ export default function FooterBar() {
       <p>
         Images & Sounds from <a className="underline" href="https://pokeapi.co/">pokeAPI</a> & <a className="underline" href="https://www.pokemon.com/us/dp-sound-library">DP sound lib</a>
       </p>
+      <p>
+        <a className="underline" target="_blank" href="https://icons8.com/icon/TYcqVDaDnqWb/pokeball">Pokeball</a> icon by <a className="underline" target="_blank" href="https://icons8.com">Icons8</a>
+      </p>
     </footer>
   );
 }

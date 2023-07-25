@@ -1,11 +1,17 @@
 {
   "name": "pokememory",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Pokemon memory game",
+  "keywords": ["game","memory","pokemon"],
+  "homepage": "https://github.com/MisterRooster/pokememory",
   "author": "MisterRooster (https://github.com/MisterRooster)",
   "license": "MIT",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MisterRooster/pokememory.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
