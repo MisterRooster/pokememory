@@ -120,7 +120,7 @@ function App() {
     if (value === 0)
       addTime(60);
     else
-      addTime((value + startNumberOfCards)*3);
+      addTime((value + startNumberOfCards)*2);
   }
 
   function gameOver() {
