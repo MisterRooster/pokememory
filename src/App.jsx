@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTimer } from 'react-timer-hook';
 
 import HeaderBar from './components/HeaderBar';
@@ -14,6 +14,7 @@ import SndLevelUpUrl from './assets/level_up.mp3';
 import SndGameOverUrl from './assets/game_over.mp3';
 
 
+/* helper function to create enum objects */
 function createEnum(values) {
   const enumObject = {};
   for (const val of values) {
@@ -22,7 +23,18 @@ function createEnum(values) {
   return Object.freeze(enumObject);
 }
 
+/* helper function to shuffle an array */
+const shuffledArray = (array) => {
+  let shuffledArray = array.slice(0);
+  for (let i = 0; i < shuffledArray.length; i++) {
+    const j = Math.floor(Math.random() * shuffledArray.length);
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+}
+
 function App() {
+  
   // ---------------------- sound ---------------------- //
 
   const [hasSound, setHasSound] = useState(true);
@@ -38,16 +50,13 @@ function App() {
 
   // --------------------- modals ---------------------- //
 
-  const MODALTYPE = createEnum(['WELCOME', 'INFO', 'LEVELUP', 'GAMEOVER']);
-  const [modalOpenArr, setModalOpenArr] = useState({ WELCOME: true, INFO: false, LEVELUP: false, GAMEOVER: false});
+  const MODALTYPE = createEnum(['WELCOME', 'LEVELUP', 'GAMEOVER']);
+  const [modalOpenArr, setModalOpenArr] = useState({ WELCOME: true, LEVELUP: false, GAMEOVER: false});
 
   function openModal(modaltype) {
     switch (modaltype) {
       case MODALTYPE.WELCOME:
         setModalOpenArr({...modalOpenArr, WELCOME: true});
-        break;
-      case MODALTYPE.INFO:
-        setModalOpenArr({...modalOpenArr, INFO: true});
         break;
       case MODALTYPE.LEVELUP:
         setModalOpenArr({...modalOpenArr, LEVELUP: true});
@@ -63,9 +72,6 @@ function App() {
       case MODALTYPE.WELCOME:
         setModalOpenArr({...modalOpenArr, WELCOME: false});
         break;
-      case MODALTYPE.INFO:
-        setModalOpenArr({...modalOpenArr, INFO: false});
-        break;
       case MODALTYPE.LEVELUP:
         setModalOpenArr({...modalOpenArr, LEVELUP: false});
         break;
@@ -75,12 +81,7 @@ function App() {
     }
   }
 
-  // show info modal on start
-  /*/useEffect(() => {
-    if (!window.modal_welcome.open) window.modal_welcome.showModal()
-  }, []);//*/
-
-  // ---------------------- game ----------------------- //
+  // ------------------- game logic -------------------- //
 
   const startNumberOfCards = 5;
   const [level, setLevel] = useState(0);
@@ -115,15 +116,6 @@ function App() {
     openModal(MODALTYPE.GAMEOVER);
   }
 
-  const shuffledArray = (array) => {
-		let shuffledArray = array.slice(0);
-		for (let i = 0; i < shuffledArray.length; i++) {
-			const j = Math.floor(Math.random() * shuffledArray.length);
-			[shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-		}
-		return shuffledArray;
-	}
-
   function handleClick(uuid) {
     if (clickedCards.has(uuid)) { // card already selected
       if (hasSound) playSound(SndWrongChoiceUrl);
@@ -152,6 +144,8 @@ function App() {
       setCardKeys((prev)=> shuffledArray(prev));
     }
   }
+
+  // --------------------- render ---------------------- //
 
   return (
     <div className='flex flex-col min-h-full max-w-7xl my-0 mx-auto border-x border-base-300'>
