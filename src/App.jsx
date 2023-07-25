@@ -96,6 +96,7 @@ function App() {
 
   const [cardKeys, setCardKeys] = useState([...Array(level + startNumberOfCards).keys()]);
   const [clickedCards, setClickedCards] = useState(new Set());
+  const [consecutiveMax, setConsecutiveMax] = useState(0);
   const [blinkingCard, setBlinkingCard] = useState(-1);
 
   // timer
@@ -113,7 +114,6 @@ function App() {
   }
 
   function resetLevel() {
-    setScore(0);
     setClickedCards(new Set());
   }
 
@@ -121,11 +121,15 @@ function App() {
     setLevel((prev) => value);
     setCardKeys(() => [...Array(value + startNumberOfCards).keys()]);
     resetLevel();
-
-    if (value === 0)
+    setConsecutiveMax(0);
+    
+    if (value === 0) {
+      setScore(0);
       addTime(60);
-    else
+    }
+    else {
       addTime((value + startNumberOfCards)*2);
+    }
   }
 
   function gameOver() {
@@ -145,13 +149,20 @@ function App() {
       resetLevel();
     } else {
       if (hasSound) playSound(SndRightChoiceUrl);
-
+      
+      const clickedCardsSize = clickedCards.size+1;
       setClickedCards((prev) => new Set(prev.add(uuid)));
-      setScore((prev) => prev+level);
-      setBestScore((prev) => Math.max(score + 1, prev)); // +1 because react state set is not atomic
+      
+      if (clickedCardsSize > consecutiveMax) {
+        setConsecutiveMax(clickedCardsSize);
+
+        const newScore = score + level + 1;
+        setScore(newScore);
+        setBestScore((prev) => Math.max(newScore, prev)); // +1 because react state set is not atomic
+      }
 
       // user has finished the level
-      if (clickedCards.size === (startNumberOfCards+level)) {
+      if (clickedCardsSize === (startNumberOfCards+level)) {
         if (hasSound) playSound(SndLevelUpUrl);
         pause();
         openModal(MODALTYPE.LEVELUP);
@@ -160,14 +171,6 @@ function App() {
       // shuffle keys
       setCardKeys((prev)=> shuffledArray(prev));
     }
-  }
-
-  function calcScore() {
-    let score = 0;
-    for (let i= 0; i < level; i++) {
-      score += (startNumberOfCards + i) * (i+1);
-    }
-    
   }
 
   // --------------------- render ---------------------- //
