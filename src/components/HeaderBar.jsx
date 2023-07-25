@@ -42,7 +42,7 @@ function HeaderBar({
   });
 
   return (
-    <header className="p-4 flex items-center bg-gradient-to-b from-secondary to-base-100">
+    <header className="p-4 flex items-center bg-gradient-to-b from-primary to-base-100">
       <ModalInfo
         isOpen={modalInfoOpen}
         close={() => setModalInfoOpen(false)}

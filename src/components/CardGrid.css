@@ -29,6 +29,6 @@
 @media (hover: hover) {
 	.card:hover {
 		transform: scale(1.1);
-    @apply bg-primary;
+    @apply bg-secondary;
 	}
 }
