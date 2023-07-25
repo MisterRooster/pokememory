@@ -11,6 +11,7 @@ export default {
     },
     fontFamily: {
       'space2p': '"Press Start 2P", system-ui, Helvetica, Arial, sans-serif',
+      'tektur': '"Tektur", system-ui, Helvetica, Arial, sans-serif',
     },
     extend: {},
   },
