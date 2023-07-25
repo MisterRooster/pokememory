@@ -1,9 +1,27 @@
-export default function ModalInfo() {
+import PropTypes from 'prop-types';
+import ModalBox from "./ModalBox/ModalBox"
+
+
+function ModalInfo({ isOpen, close, onAfterClose}) {
   return (
-    <dialog id="modal_info" className="modal modal-bottom sm:modal-middle">
-      <form method="dialog" className="modal-box">
-        <button className="btn btn-md btn-circle btn-ghost absolute right-2 top-2 text-xl">✕</button>
-        <h3 className="font-bold text-lg">Welcome to Pokememory!</h3>
+    <ModalBox
+      isOpen={isOpen}
+      close={close}
+      onAfterClose={onAfterClose}
+      closeOnOverlayClick={true}
+      closeOnEsc={true}
+      ClassName="outline outline-secondary max-w-lg"
+      aria={{
+        labelledby: "mif_heading",
+        describedby: "mif_description",
+      }}
+    >
+      <button
+        onClick={close}
+        className="btn btn-md btn-circle btn-ghost absolute right-2 top-2 text-xl"
+      >✕</button>
+      <h3 id="mif_heading" className="font-bold text-lg">How to play:</h3>
+      <div id="mgo_description">
         <p className="py-4">
           Try to click on as many cards as possible without
           choosing the same card twice.
@@ -13,15 +31,19 @@ export default function ModalInfo() {
         <p>
           On every level one additional pokemon joins and you get a time bonus.
           The faster you are the higher your score!
-          
         </p>
         <p className="font-semibold">
           Don't let time run out and Have fun playing!
         </p>
-      </form>
-      <form method="dialog" className="modal-backdrop">
-        <button>close</button>
-      </form>
-    </dialog>
+      </div>
+    </ModalBox>
   );
 }
+
+ModalInfo.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  close: PropTypes.func.isRequired,
+  onAfterClose: PropTypes.func,
+};
+
+export default ModalInfo;
