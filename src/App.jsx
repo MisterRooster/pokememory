@@ -194,7 +194,7 @@ function App() {
         close={() => closeModal(MODALTYPE.GAMEOVER)}
         onAfterClose={() => gotoLevel(0)}
         maxlevel={level}
-        score={bestScore}/>
+        score={score}/>
       <HeaderBar
         level={level}
         currentScore={score}
