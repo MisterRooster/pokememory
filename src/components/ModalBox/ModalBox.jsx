@@ -30,6 +30,7 @@ Modal.defaultStyles = {
 
 function ModalBox({
   children,
+  ClassName,
   isOpen,
   close,
   onAfterOpen,
@@ -38,6 +39,11 @@ function ModalBox({
   closeOnEsc=true,
   aria,
 }) {
+
+  let combinedClassName = "p-5 bg-base-100 self-end sm:self-center rounded-t-xl sm:rounded-b-xl overflow-auto";
+  if (ClassName)
+    combinedClassName = combinedClassName.concat(" ", ClassName);
+
   return (
     <Modal
       isOpen={isOpen}
@@ -47,7 +53,7 @@ function ModalBox({
       shouldCloseOnOverlayClick={closeOnOverlayClick}
       shouldCloseOnEsc={closeOnEsc}
       closeTimeoutMS={200}
-      className="p-5 bg-base-100 self-end sm:self-center rounded-xl overflow-auto"
+      className={combinedClassName}
       aria={aria}
     >
       {children}
