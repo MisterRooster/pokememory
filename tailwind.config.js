@@ -6,6 +6,7 @@ export default {
   ],
   theme: {
     gridTemplateColumns: {
+      'cards-sm': 'repeat(auto-fit, minmax(95px, auto))',
       'cards': 'repeat(auto-fit, minmax(120px, auto))',
     },
     fontFamily: {

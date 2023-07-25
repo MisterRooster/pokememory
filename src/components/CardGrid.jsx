@@ -13,7 +13,7 @@ function CardGrid({children}) {
   );
 
   return (
-    <div className='grid grid-cols-cards gap-5'>
+    <div className='grid grid-cols-cards-sm sm:grid-cols-cards gap-5'>
       {cardComponents && cardComponents.map((component) => component)}
     </div>
   );
@@ -38,11 +38,6 @@ const Card = ({uuid, onClick, blink=false}) => {
   const [detailMode, setDetailMode] = useState(false);
   const detailModeStyle = (detailMode) ? "detailMode" : "";
   const cardBlinkStyle = (blink) ? "blinking" : "";
-
-  function handleClick(e) {
-    if (onClick) onClick();
-    //reset();
-  }
 
   function reset() {
     setCreature(null);
