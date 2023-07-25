@@ -2,26 +2,24 @@ import PropTypes from 'prop-types';
 import ModalBox from "./ModalBox/ModalBox"
 
 
-function ModalInfo({ isOpen, close, onAfterClose}) {
+function ModalWelcome({ isOpen, close, onAfterClose }) {
   return (
     <ModalBox
       isOpen={isOpen}
       close={close}
       onAfterClose={onAfterClose}
-      closeOnOverlayClick={true}
+      closeOnOverlayClick={false}
       closeOnEsc={true}
       ClassName="shadow-2xl shadow-secondary max-w-lg"
       aria={{
-        labelledby: "mif_heading",
-        describedby: "mif_description",
+        labelledby: "mwc_heading",
+        describedby: "mwc_description",
       }}
     >
-      <button
-        onClick={close}
-        className="btn btn-md btn-circle btn-ghost absolute right-2 top-2 text-xl"
-      >✕</button>
-      <h3 id="mif_heading" className="font-bold text-lg">How to play:</h3>
-      <div id="mif_description">
+      <h3 id="mwc_heading" className="font-bold text-3xl text-center">
+        Welcome to Pokememory!
+      </h3>
+      <div id="mwc_description">
         <p className="py-4">
           Try to click on as many cards as possible without
           choosing the same card twice.
@@ -36,14 +34,17 @@ function ModalInfo({ isOpen, close, onAfterClose}) {
           Don't let time run out and Have fun playing!
         </p>
       </div>
+      <div className="py-4 flex justify-center">
+        <button onClick={close} className='btn btn-primary'>Lets Go!</button>
+      </div>
     </ModalBox>
   );
 }
 
-ModalInfo.propTypes = {
+ModalWelcome.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
   onAfterClose: PropTypes.func,
 };
 
-export default ModalInfo;
+export default ModalWelcome;

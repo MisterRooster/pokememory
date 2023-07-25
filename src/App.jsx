@@ -34,7 +34,7 @@ const shuffledArray = (array) => {
 }
 
 function App() {
-  
+
   // ---------------------- sound ---------------------- //
 
   const [hasSound, setHasSound] = useState(true);
@@ -94,11 +94,11 @@ function App() {
 
   // timer data
   const startTime = new Date();
-  startTime.setSeconds(startTime.getSeconds() + 10);
+  startTime.setSeconds(startTime.getSeconds() + 30);
   const {
     totalSeconds, seconds, minutes, hours, days,
     isRunning, start, pause, resume, restart,
-  } = useTimer({ expiryTimestamp: startTime, autoStart: false, onExpire: gameOver });
+  } = useTimer({ expiryTimestamp: startTime, onExpire: gameOver, autoStart: false });
 
   function resetLevel() {
     setScore(0);
@@ -149,12 +149,16 @@ function App() {
 
   return (
     <div className='flex flex-col min-h-full max-w-7xl my-0 mx-auto border-x border-base-300'>
-      <ModalWelcome isOpen={modalOpenArr.WELCOME} close={()=>closeModal(MODALTYPE.WELCOME)}/>
+      <ModalWelcome 
+        isOpen={modalOpenArr.WELCOME}
+        close={()=>closeModal(MODALTYPE.WELCOME)}
+        onAfterClose={() => start()}
+      />
       <ModalWin currLevel={level}/>
       <ModalGameOver
         isOpen={modalOpenArr.GAMEOVER}
         close={() => closeModal(MODALTYPE.GAMEOVER)}
-        onAfterClose={()=>newLevel(0)}/>
+        onAfterClose={() => newLevel(0)}/>
       <HeaderBar
         level={level}
         currentScore={score}
