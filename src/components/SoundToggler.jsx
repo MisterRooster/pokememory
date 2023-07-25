@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types';
 
+/*
+ * Toggles sound on/off
+ */
 function SoundToggler({ size=32, hasSound, setHasSound }) {
   function toggle() {
     setHasSound(!hasSound)

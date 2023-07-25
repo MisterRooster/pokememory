@@ -2,11 +2,13 @@ import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames'
 
-import ModalInfo from './ModalInfo';
+import ModalInfo from './modals/ModalInfo';
 import ThemeToggler from './ThemeToggler';
 import SoundToggler from './SoundToggler';
 
-
+/**
+ * Main header off the app 
+ */
 function HeaderBar({
   level, currentScore, bestScore,
   hasSound, setHasSound, timerData,

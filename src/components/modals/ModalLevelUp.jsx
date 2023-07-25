@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import ModalBox from "./ModalBox/ModalBox"
 
-
+/*
+ * Modal window shown when leveling up
+ */
 function ModalLevelUp({ isOpen, close, onAfterClose, currLevel, startNumberOfCards}) {
   return (
     <ModalBox

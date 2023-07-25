@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react'
 
+/*
+ * Toggles between light & dark theme
+ */
 function ThemeToggler({ size=32 }) {
   const [theme, setTheme] = useState('retro');
 

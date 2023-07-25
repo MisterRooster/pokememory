@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import ModalBox from "./ModalBox/ModalBox"
 
-
+/*
+ * Modal window shown when game is over
+ */
 function ModalGameOver({ isOpen, close, onAfterClose, maxlevel, score}) {
   return (
     <ModalBox

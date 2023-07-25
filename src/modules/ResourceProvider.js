@@ -1,5 +1,6 @@
 import { Pokedex } from 'pokeapi-js-wrapper';
 
+
 class ResourceProvider {
   static _pokeApi = new Pokedex({ cache: true, cacheImages: true });
 

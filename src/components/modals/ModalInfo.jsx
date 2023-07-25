@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import ModalBox from "./ModalBox/ModalBox"
 
-
+/*
+ * Modal window displaying game instructions
+ */
 function ModalInfo({ isOpen, close, onAfterClose}) {
   return (
     <ModalBox

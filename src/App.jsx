@@ -5,9 +5,9 @@ import HeaderBar from './components/HeaderBar';
 import FooterBar from './components/FooterBar';
 import CardGrid from './components/CardGrid';
 import TimeBar from './components/TimeBar';
-import ModalWelcome from './components/ModalWelcome';
-import ModalLevelUp from './components/ModalLevelUp';
-import ModalGameOver from './components/ModalGameOver';
+import ModalWelcome from './components/modals/ModalWelcome';
+import ModalLevelUp from './components/modals/ModalLevelUp';
+import ModalGameOver from './components/modals/ModalGameOver';
 
 import SndRightChoiceUrl from './assets/right_choice.mp3';
 import SndWrongChoiceUrl from './assets/wrong_choice.mp3';
@@ -34,6 +34,9 @@ const shuffledArray = (array) => {
   return shuffledArray;
 }
 
+/*
+ * Main application component
+ */
 function App() {
 
   // ---------------------- sound ---------------------- //
@@ -113,10 +116,12 @@ function App() {
     restart(time);
   }
 
+  /* reset the current level */
   function resetLevel() {
     setClickedCards(new Set());
   }
 
+  /* change level */
   function gotoLevel(value) {
     setLevel((prev) => value);
     setCardKeys(() => [...Array(value + startNumberOfCards).keys()]);
@@ -132,11 +137,13 @@ function App() {
     }
   }
 
+  /* runs when game is over (timer ran out) */
   function gameOver() {
     if (hasSound) playSound(SndGameOverUrl);
     openModal(MODALTYPE.GAMEOVER);
   }
 
+  /* handler for clicking on card */
   function handleClick(uuid) {
     if (clickedCards.has(uuid)) { // card already selected
       if (hasSound) playSound(SndWrongChoiceUrl);
@@ -211,6 +218,8 @@ function App() {
           totalSeconds: totalSeconds,
           seconds: seconds,
           minutes: minutes,
+          pause: pause,
+          resume: resume,
         }}
       />
       <main className='p-4 flex-1 bg-gradient-to-b from-base-100 to-base-200'>

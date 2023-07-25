@@ -1,7 +1,6 @@
 /**
  * ModalBox
- * 
- * requires: npm i react-modal
+ * author: MisterRooster
  * 
  * use:
  * <ModalBox isOpen={openstate}, close={setOpenState} ...>

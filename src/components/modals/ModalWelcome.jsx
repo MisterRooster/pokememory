@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import ModalBox from "./ModalBox/ModalBox"
 
-
+/*
+ * Modal window shown on app loading
+ */
 function ModalWelcome({ isOpen, close, onAfterClose }) {
   return (
     <ModalBox

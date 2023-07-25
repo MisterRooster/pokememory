@@ -1,3 +1,6 @@
+/**
+ * Main footer of the app 
+ */
 export default function FooterBar() {
   return (
     <footer className="flex flex-col items-center justify-center p-4 text-base-content text-[10px] bg-gradient-to-b from-base-200 to-base-300">

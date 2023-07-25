@@ -5,7 +5,7 @@ import cn from 'classnames'
 import ModalPause from './modals/ModalPause';
 
 /*
- * Display time value
+ * Display time value & pause the game
  */
 function TimeBar({timerData}) {
   const [modalPauseOpen, setModalPauseOpen] = useState(false);
