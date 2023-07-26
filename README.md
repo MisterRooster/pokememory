@@ -7,6 +7,8 @@
 A pokemon memory game built with Vite, React and TailwindCSS.
 Uses [PokeAPI](https://pokeapi.co/) to gather pokemon data and sound samples from the [DP Sound library](https://www.pokemon.com/us/dp-sound-library).
 
+[▶ Live Preview](https://pokememory.pages.dev/)
+
 ## How to play
 
 Try to click on as many cards as possible successively without
