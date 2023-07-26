@@ -97,7 +97,7 @@ function App() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
 
-  const [cardKeys, setCardKeys] = useState([...Array(level + startNumberOfCards).keys()]);
+  const [cardKeys, setCardKeys] = useState([...Array(startNumberOfCards).keys()]);
   const [clickedCards, setClickedCards] = useState(new Set());
   const [consecutiveMax, setConsecutiveMax] = useState(0);
   const [blinkingCard, setBlinkingCard] = useState(-1);
@@ -224,13 +224,14 @@ function App() {
       />
       <main className='p-4 flex-1 bg-gradient-to-b from-base-100 to-base-200'>
         <CardGrid>
-          {cardKeys.map(key =>
-            <CardGrid.Card
+          {cardKeys.map(key => {
+            return <CardGrid.Card
               key={key}
               uuid={key}
               onClick={handleClick}
-              blink={blinkingCard===key}/>)
-          }
+              blink={blinkingCard===key}
+            />;
+          })}
         </CardGrid>
       </main>
       <FooterBar />
