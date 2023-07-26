@@ -12,7 +12,7 @@ function ModalGameOver({ isOpen, close, onAfterClose, maxlevel, score}) {
       onAfterClose={onAfterClose}
       closeOnOverlayClick={false}
       closeOnEsc={false}
-      ClassName="shadow-2xl shadow-secondary max-w-lg"
+      ClassName="shadow-lg shadow-secondary max-w-lg"
       aria={{
         labelledby: "mgo_heading",
         describedby: "mgo_description",

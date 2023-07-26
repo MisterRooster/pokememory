@@ -12,7 +12,7 @@ function ModalLevelUp({ isOpen, close, onAfterClose, currLevel, startNumberOfCar
       onAfterClose={onAfterClose}
       closeOnOverlayClick={true}
       closeOnEsc={true}
-      ClassName="shadow-2xl shadow-secondary max-w-lg text-center"
+      ClassName="shadow-lg shadow-secondary max-w-lg text-center"
       aria={{
         labelledby: "mlu_heading",
         describedby: "mlu_description",

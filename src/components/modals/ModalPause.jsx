@@ -12,7 +12,7 @@ function ModalPause({ isOpen, close, onAfterClose}) {
       onAfterClose={onAfterClose}
       closeOnOverlayClick={true}
       closeOnEsc={true}
-      ClassName="shadow-2xl shadow-secondary max-w-lg"
+      ClassName="shadow-lg shadow-secondary max-w-lg"
       aria={{
         labelledby: "mpg_heading",
         describedby: "mpg_description",
