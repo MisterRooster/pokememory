@@ -12,7 +12,7 @@ function ModalWelcome({ isOpen, close, onAfterClose }) {
       onAfterClose={onAfterClose}
       closeOnOverlayClick={false}
       closeOnEsc={true}
-      ClassName="shadow-2xl shadow-secondary max-w-lg"
+      ClassName="shadow-lg shadow-secondary max-w-lg"
       aria={{
         labelledby: "mwc_heading",
         describedby: "mwc_description",

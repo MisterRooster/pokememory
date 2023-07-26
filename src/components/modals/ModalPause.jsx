@@ -12,7 +12,7 @@ function ModalPause({ isOpen, close, onAfterClose}) {
       onAfterClose={onAfterClose}
       closeOnOverlayClick={true}
       closeOnEsc={true}
-      ClassName="shadow-2xl shadow-secondary max-w-lg"
+      ClassName="shadow-lg shadow-secondary max-w-lg"
       aria={{
         labelledby: "mpg_heading",
         describedby: "mpg_description",
@@ -28,7 +28,7 @@ function ModalPause({ isOpen, close, onAfterClose}) {
           onClick={close}
           className='btn btn-primary'
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className='w-8 h-8' viewBox="0 0 24 24"><title>play</title><path d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" className='w-8 h-8' viewBox="0 0 24 24" fill='currentColor'><title>play</title><path d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>
           Continue
         </button>
       </div>

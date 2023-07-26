@@ -30,7 +30,7 @@ function TimeBar({timerData}) {
           timerData.pause();
           setModalPauseOpen(true);
         }}>
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" viewBox="0 0 24 24"><title>pause</title><path d="M14,19H18V5H14M6,19H10V5H6V19Z" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" viewBox="0 0 24 24" stroke="currentColor" fill='currentColor'><title>pause</title><path d="M14,19H18V5H14M6,19H10V5H6V19Z" /></svg>
         </button>
       </div>
     </div>

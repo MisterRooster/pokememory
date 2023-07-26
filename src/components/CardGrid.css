@@ -1,5 +1,5 @@
 .card {
-  transition: transform 0.1s;
+  transition: all 0.1s;
 }
 
 .card > img {
@@ -29,6 +29,6 @@
 @media (hover: hover) {
 	.card:hover {
 		transform: scale(1.1);
-    @apply bg-secondary;
+    @apply bg-secondary/30;
 	}
 }

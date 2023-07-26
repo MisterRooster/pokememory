@@ -12,7 +12,7 @@ function ModalInfo({ isOpen, close, onAfterClose}) {
       onAfterClose={onAfterClose}
       closeOnOverlayClick={true}
       closeOnEsc={true}
-      ClassName="shadow-2xl shadow-secondary max-w-lg"
+      ClassName="shadow-lg shadow-secondary max-w-lg"
       aria={{
         labelledby: "mif_heading",
         describedby: "mif_description",
